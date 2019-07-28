@@ -1,0 +1,4 @@
+.colorList{
+    display: flex;
+    flex-wrap: wrap;
+}
