@@ -2,51 +2,41 @@ import React, { Component } from 'react';
 import './App.css';
 import AddColorForm from './components/AddColorForm';
 import ColorList from './components/ColorList/ColorList.js';
-import constants from './constants';
-
+import PropTypes from 'prop-types';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.addColor = this.addColor.bind(this);
-    this.rateColor = this.rateColor.bind(this);
-    this.removeColor = this.removeColor.bind(this);
+
+  getChildContext() {
+    return {
+      store: this.props.store
+    }
   }
 
+  componentWillMount() {
+    this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate());
 
-  addColor(title, color) {
-    this.props.store.dispatch({
-      type:constants.ADD_COLOR,
-      title,
-      color,
-    })
   }
-
-  rateColor(id, rating) {
-   this.props.store.dispatch({
-    type:constants.RATE_COLOR, 
-    id,rating});
-  }
-
-  removeColor(id) {
-   this.props.store.dispatch({type:constants.REMOVE_COLOR,id});
-  
-  }
-  componentWillUpdate(){
-    console.log("update");
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {
-    const {store}=this.props;
+    const { store } = this.props;
     return (
       <div>
-        <AddColorForm onNewColor={this.addColor} />
-        <ColorList onRate={this.rateColor} onRemove={this.removeColor}
-         colors={store.getState().colorsReducer} />
+        <AddColorForm />
+        <ColorList colors={store.getState().colorsReducer} />
       </div>
 
     )
   }
 }
 
+App.propTypes={
+store:PropTypes.object.isRequired
+}
+
+App.childContextTypes={
+  store:PropTypes.object.isRequired
+}
 export default App;

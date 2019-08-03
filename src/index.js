@@ -35,6 +35,5 @@ const render = () =>
         <App store={store} />,
         document.getElementById('root')
     )
-store.subscribe(render)
 render()
 
