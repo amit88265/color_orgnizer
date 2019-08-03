@@ -1,33 +1,28 @@
 import React from 'react';
 
 import Color from './Color.js';
-
-import PropsTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 import './ColorList.css';
 
-const ColorList = ({ colors = [], onRate = f => f, onRemove = f => f }) => {
+const ColorList = (props) => {
     return (
         <div className="colorList">
             {
-                colors.length === 0 ? <p>No color available</p> :
-                    colors.map((c, index) =>
-                        <Color {...c} key={index} onRate={(rating) => onRate(c.id, rating)}
-                            onRemove={() => onRemove(c.id)} />
+                props.colors===undefined ? <p>No color available</p> :
+                    props.colors.map((c, index) =>
+                        <Color {...c} key={index}/>
                     )
             }
         </div>
     )
 }
 
-ColorList.propsTypes = {
-    colors: PropsTypes.array,
-    onRate: PropsTypes.func,
-    onRemove: PropsTypes.func
+
+const mapStateToProps=(state)=>{
+    return {
+        colors:state.colorsReducer
+    }
 }
 
-ColorList.defaultTypes = {
-    //can be set here rather than in arg
-}
-
-export default ColorList;
+export default connect(mapStateToProps,null) (ColorList);

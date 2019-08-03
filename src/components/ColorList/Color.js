@@ -4,6 +4,7 @@ import StarRating from '../StarRating/StarRating';
 
 import PropTypes from 'prop-types';
 import constants from '../../constants';
+import { connect } from 'react-redux';
 
 class Color extends Component {
 
@@ -12,17 +13,12 @@ class Color extends Component {
     }
     render() {
         const { id, title, color, rating } = this.props;
-        const { store } = this.context;
         return (
             <section>
                 <h1>{title}</h1>
-                <button onClick={() => store.dispatch({ type: constants.REMOVE_COLOR, id })}>X</button>
+                <button onClick={() => this.props.removeColor(id)}>X</button>
                 <div style={{ background: color, width: 100, height: 100 }}></div>
-                <StarRating starSelected={rating} onRate={(rating) => store.dispatch({
-                    type: constants.RATE_COLOR,
-                    id, 
-                    rating
-                })} />
+                <StarRating starSelected={rating} onRate={(rating) => this.props.rateColor(id,rating)} />
             </section>
         )
     }
@@ -43,8 +39,14 @@ Color.defaultProps = {
     onRemove: f => f,
     onRate: f => f
 }
-
-Color.contextTypes = {
-    store: PropTypes.object
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeColor: (id) => dispatch({ type: constants.REMOVE_COLOR, id }),
+        rateColor: (id,rating) => dispatch({
+            type: constants.RATE_COLOR,
+            id,
+            rating
+        })
+    }
 }
-export default Color;
+export default connect(null,mapDispatchToProps)(Color);

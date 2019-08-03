@@ -1,18 +1,13 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
 import constants from '../constants';
-import PropTypes from 'prop-types';
 
-const AddColorform = (props, { store }) => {
+const AddColorform = (props) => {
 
     let _title, _color;
 
     function submit(e) {
-        store.dispatch({
-            type: constants.ADD_COLOR,
-            title: _title.value,
-            color: _color.value,
-        })
+        props.addColor(_title.value,_color.value);
         _title.value = "";
         _color.value = "#111111";
         _title.focus();
@@ -26,7 +21,15 @@ const AddColorform = (props, { store }) => {
         </form>
     )
 }
-AddColorform.contextTypes = {
-store: PropTypes.object
+
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        addColor:(title,color)=>dispatch({
+            type: constants.ADD_COLOR,
+            title,
+            color,
+        })
+    }
 }
-export default AddColorform;
+
+export default connect(null,mapDispatchToProps)(AddColorform);

@@ -5,7 +5,7 @@ import App from './App';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { colorsReducer } from './reducers/colorsReducer';
 import { sortReducer } from './reducers/sortReducer';
-
+import { Provider } from 'react-redux';
 
 const logger = store => next => action => {
     let result
@@ -32,7 +32,10 @@ const store = storeFactory();
 
 const render = () =>
     ReactDOM.render(
-        <App store={store} />,
+        <Provider store={store}>
+            <App />
+        </Provider>
+        ,
         document.getElementById('root')
     )
 render()
