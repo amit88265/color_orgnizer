@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import constants from '../constants';
+import { addColor } from '../actions';
 
 const AddColorform = (props) => {
 
@@ -24,11 +24,7 @@ const AddColorform = (props) => {
 
 const mapDispatchToProps=(dispatch)=>{
     return {
-        addColor:(title,color)=>dispatch({
-            type: constants.ADD_COLOR,
-            title,
-            color,
-        })
+        addColor:(title,color)=>dispatch(addColor(title,color))
     }
 }
 

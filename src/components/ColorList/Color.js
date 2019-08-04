@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import StarRating from '../StarRating/StarRating';
 
 import PropTypes from 'prop-types';
-import constants from '../../constants';
 import { connect } from 'react-redux';
+import { removeColor, rateColor } from '../../actions';
 
 class Color extends Component {
 
@@ -41,12 +41,8 @@ Color.defaultProps = {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeColor: (id) => dispatch({ type: constants.REMOVE_COLOR, id }),
-        rateColor: (id,rating) => dispatch({
-            type: constants.RATE_COLOR,
-            id,
-            rating
-        })
+        removeColor: (id) => dispatch(removeColor(id)),
+        rateColor: (id,rating) => dispatch(rateColor(id,rating))
     }
 }
 export default connect(null,mapDispatchToProps)(Color);
