@@ -1,17 +1,14 @@
 import constants from '../constants';
 
-import v4 from 'uuid';
-
-
-
 const colorReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.ADD_COLOR:
             return {
-                id: v4(),
+                ...state,
+                id: action.id,
                 title: action.title,
                 color: action.color,
-                timestamp: new Date(),
+                timestamp:action.timestamp,
                 rating: 0
             }
         case constants.RATE_COLOR:

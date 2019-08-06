@@ -1,9 +1,12 @@
 import constants from "./constants";
+import v4 from 'uuid';
 
 export const addColor = (title, color) => ({
     type: constants.ADD_COLOR,
-        title,
-        color
+    id:v4(),
+    title,
+    color,
+    timestamp:new Date()
 })
 
 export const rateColor = (id,rating) => ({

@@ -24,7 +24,7 @@ const saver = store => next => action => {
     return result
 }
 
-const storeFactory = () =>
+export const storeFactory = () =>
     createStore(combineReducers({ colorsReducer, sortReducer }), {}, applyMiddleware(logger, saver));
 
 const store = storeFactory();

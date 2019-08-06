@@ -14,7 +14,7 @@ const AddColorform = (props) => {
     }
 
     return (
-        <form >
+        <form >   
             <input ref={input => _title = input} type="text" placeholder="title" required/>
             <input ref={input => _color = input} type="color" required></input>
             <button onClick={submit}>ADD</button>
